@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SANZ X HG CHEAT V13</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at bottom, #020111 0%, #000000 100%);
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+      color: #ff00ff;
+      text-align: center;
+    }
+    canvas#stars { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+
+    h1 {
+      font-size: 34px;
+      color: #ff00ff;
+      text-shadow: 0 0 15px #ff00ff, 0 0 30px #0033ff;
+      margin-bottom: 30px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff00ff, 0 0 30px #0033ff; }
+      to { text-shadow: 0 0 30px #ff00ff, 0 0 60px #0033ff; }
+    }
+
+    .circle {
+      width: 200px; height: 200px;
+      border: 3px solid #0033ff; border-radius: 50%;
+      margin: 40px auto;
+      box-shadow: 0 0 30px #0033ff, 0 0 60px #0033ff inset;
+      animation: pulse 3s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px #0033ff, 0 0 40px #0033ff inset; }
+      100% { box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff inset; }
+    }
+
+    button {
+      background-color: transparent;
+      color: #ff00ff;
+      border: 2px solid #0033ff;
+      border-radius: 12px;
+      padding: 14px 28px;
+      margin: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 15px #0033ff;
+    }
+    button:hover {
+      background-color: #0033ff;
+      color: white;
+      box-shadow: 0 0 25px #ff00ff, 0 0 50px #0033ff;
+      transform: scale(1.05);
+    }
+
+    .telegram-box {
+      border: 2px solid #0033ff;
+      padding: 25px;
+      margin-top: 40px;
+      border-radius: 20px;
+      display: inline-block;
+      background: rgba(0,0,50,0.25);
+      box-shadow: 0 0 25px #0033ff;
+    }
+    .telegram-box h3 { color:#ff00ff; text-shadow:0 0 10px #ff00ff; margin-bottom:15px; }
+    .join-btn { background-color:#0033ff; color:white; padding:12px 24px; border:none; border-radius:10px; cursor:pointer; box-shadow:0 0 15px #0033ff; }
+    .join-btn:hover { background-color:#ff00ff; transform:scale(1.1); box-shadow:0 0 25px #ff00ff,0 0 50px #0033ff; }
+
+    .loading {
+      display:none; margin-top:20px; font-size:18px; color:#00ffff; text-shadow:0 0 10px #00ffff; animation: flicker 1.2s infinite alternate;
+    }
+    @keyframes flicker { from {opacity:0.4;} to {opacity:1;} }
+
+    .popup {
+      display:none; position:fixed; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(0.8);
+      background: rgba(10,0,30,0.95);
+      border:2px solid #0033ff; border-radius:20px; padding:25px 40px;
+      text-align:center; box-shadow:0 0 40px #0033ff, 0 0 80px #ff00ff;
+      color:#00ffff; text-shadow:0 0 10px #00ffff; z-index:999; animation: popupFade 0.4s ease forwards;
+    }
+    @keyframes popupFade { from {opacity:0; transform:translate(-50%,-60%) scale(0.8);} to {opacity:1; transform:translate(-50%,-50%) scale(1);} }
+    .popup button { background-color:#0033ff; color:white; border:none; border-radius:8px; padding:10px 20px; font-size:14px; cursor:pointer; box-shadow:0 0 20px #0033ff; margin:8px; transition:0.3s; }
+    .popup button:hover { background-color:#ff00ff; box-shadow:0 0 30px #ff00ff; }
+
+    footer { margin-top:50px; font-size:14px; color:#666; }
+    footer span { color:#ff00ff; text-shadow:0 0 5px #ff00ff; }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+
+  <div class="circle"></div>
+  <h1>SANZ X HG CHEAT<br>V13</h1>
+
+  <button onclick="suaraKlik(); buatGratis()">- GENERATE GRATIS -</button><br>
+  <button onclick="suaraKlik(); buatKunci()">BUAT KUNCI</button>
+
+  <div class="loading" id="loading">⚡ Sedang membuat kunci...</div>
+
+  <div class="telegram-box">
+    <h3>GABUNG TELEGRAM</h3>
+    <button class="join-btn" onclick="suaraKlik(); bukaTelegram()">GABUNG SEKARANG</button>
+  </div>
+
+  <div id="popup" class="popup">
+    <h2>🎉 KUNCI BERHASIL DIBUAT</h2>
+    <p id="keyText" style="font-weight:700; font-size:18px; color:#fff; text-shadow:0 0 8px #ff00ff;"></p>
+    <button onclick="salinKunci()">📋 Salin Kunci</button>
+    <button onclick="tutupPopup()">TUTUP</button>
+  </div>
+
+  <footer>
+    <p>© 2025 <span>SANZ X HG</span> | Semua hak dilindungi</p>
+  </footer>
+
+  <!-- Efek suara -->
+  <audio id="clickSound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7b0c2a9c78.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="loadingSound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_13eaf9b28c.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="popupSound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/30/audio_54f35a8dfc.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="errorSound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2023/02/28/audio_32e08e4d73.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Elemen
+    const suaraKlikEl = document.getElementById("clickSound");
+    const suaraLoadingEl = document.getElementById("loadingSound");
+    const suaraPopupEl = document.getElementById("popupSound");
+    const suaraErrorEl = document.getElementById("errorSound");
+    const loading = document.getElementById("loading");
+    const popup = document.getElementById("popup");
+    const keyText = document.getElementById("keyText");
+
+    let sudahGenerateGratis = false;
+
+    function suaraKlik() {
+      suaraKlikEl.currentTime = 0;
+      suaraKlikEl.play().catch(()=>{});
+    }
+
+    function buatGratis() {
+      sudahGenerateGratis = true;
+      alert("✅ Mode gratis aktif!");
+    }
+
+    function buatKunci() {
+      if (!sudahGenerateGratis) {
+        suaraErrorEl.currentTime = 0;
+        suaraErrorEl.play().catch(()=>{});
+        alert("❌ Kesalahan: Tekan 'GENERATE GRATIS' terlebih dahulu!");
+        return;
+      }
+
+      loading.style.display = "block";
+      suaraLoadingEl.currentTime = 0;
+      suaraLoadingEl.play().catch(()=>{});
+
+      document.querySelectorAll("button").forEach(btn => btn.disabled = true);
+
+      setTimeout(() => {
+        const key = generateSanzKey();
+        loading.style.display = "none";
+        document.querySelectorAll("button").forEach(btn => btn.disabled = false);
+        suaraPopupEl.currentTime = 0;
+        suaraPopupEl.play().catch(()=>{});
+        tampilkanPopup(key);
+      }, 2500);
+    }
+
+    // Fungsi pembuat kunci acak format SANZ-ABCD1234
+    function generateSanzKey() {
+      // 4 huruf A-Z
+      const letters = Array.from({length:4}, () => String.fromCharCode(65 + Math.floor(Math.random()*26))).join('');
+      // 4 angka (0000-9999), tapi supaya selalu 4 digit pakai padStart
+      const numbers = Math.floor(Math.random()*10000).toString().padStart(4, '0');
+      return `SANZ-${letters}${numbers}`;
+    }
+
+    function tampilkanPopup(key) {
+      keyText.textContent = key;
+      popup.style.display = "block";
+    }
+
+    function tutupPopup() {
+      popup.style.display = "none";
+    }
+
+    function salinKunci() {
+      const key = keyText.textContent;
+      if (!key) {
+        alert("Tidak ada kunci untuk disalin.");
+        return;
+      }
+      navigator.clipboard.writeText(key).then(() => {
+        alert("📋 Kunci berhasil disalin ke clipboard!");
+      }).catch(() => {
+        // fallback: select text dan beri instruksi manual
+        alert("Gagal menyalin otomatis. Silakan salin manual: " + key);
+      });
+    }
+
+    function bukaTelegram() {
+      window.open("https://t.me/yourchannel", "_blank");
+    }
+
+    // ANIMASI LATAR BINTANG
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 150; i++) {
+      stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, z: Math.random() * canvas.width });
+    }
+
+    function gerakBintang() {
+      ctx.fillStyle = "rgba(0, 0, 20, 0.6)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        star.z -= 2;
+        if (star.z <= 0) {
+          star.x = Math.random() * canvas.width;
+          star.y = Math.random() * canvas.height;
+          star.z = canvas.width;
+        }
+
+        const k = 128.0 / star.z;
+        const px = star.x * k + canvas.width / 2;
+        const py = star.y * k + canvas.height / 2;
+
+        if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+          const size = (1 - star.z / canvas.width) * 2;
+          ctx.fillStyle = "white";
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(gerakBintang);
+    }
+    gerakBintang();
+  </script>
+</body>
+</html>
