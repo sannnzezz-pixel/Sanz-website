@@ -263,6 +263,27 @@
       requestAnimationFrame(gerakBintang);
     }
     gerakBintang();
-  </script>
+<!-- Kode safelink kamu di sini -->
+<script>
+  const safeLink = "https://safefileku.com/download/20VSt2YpL13x"; // ganti dengan link safelink kamu
+  const myWeb = "https://sannnzezz.github.io/"; // websitemu di GitHub Pages
+
+  // Saat tombol Generate ditekan
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    localStorage.setItem("passedLink", "true");
+    window.location.href = safeLink;
+  });
+
+  // Setelah melewati safelink
+  if (localStorage.getItem("passedLink") === "true") {
+    localStorage.removeItem("passedLink");
+    document.body.innerHTML += `
+      <div style="text-align:center;margin-top:30px;">
+        <h3>🎉 Key Berhasil Dibuat!</h3>
+        <p style="font-size:20px;">KEY-${Math.random().toString(36).substring(2, 10).toUpperCase()}</p>
+      </div>
+    `;
+  }
+</script>
 </body>
 </html>
